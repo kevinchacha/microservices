@@ -1,4 +1,5 @@
 package com.sofka.com.cuenta_movimientos_service.model;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
@@ -25,15 +26,40 @@ public class Movimiento {
     private double saldo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cuenta_id", nullable = false)
+    @JoinColumn(name = "cuenta_id", referencedColumnName = "numero_cuenta" , nullable = false)
     @JsonIgnoreProperties({"movimientos", "tipoCuenta", "saldoInicial", "estado", "cliente"})
     private Cuenta cuenta;
 
-    public Cuenta getCuenta() {
-        return cuenta;
+
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setCuenta(Cuenta cuenta) {
-        this.cuenta = cuenta;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getTipoMovimiento() {
+        return tipoMovimiento;
+    }
+
+    public void setTipoMovimiento(String tipoMovimiento) {
+        this.tipoMovimiento = tipoMovimiento;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
     }
 }

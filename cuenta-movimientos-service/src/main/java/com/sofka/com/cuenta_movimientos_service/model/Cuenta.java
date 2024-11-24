@@ -1,6 +1,6 @@
 package com.sofka.com.cuenta_movimientos_service.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.sofka.com.cuenta_movimientos_service.utils.TipoCuenta;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -8,13 +8,17 @@ import java.util.List;
 @Table(name = "cuenta")
 public class Cuenta implements Serializable  {
     @Id
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "numeroCuenta")
+    @Column(name = "cuenta_id")
     private Long id;
 
-    @Enumerated(EnumType.STRING)
+    
+    @Column(name = "numero_cuenta", nullable = false)
+    private long numeroCuenta;
+
     @Column(name = "tipoCuenta", nullable = false)
-    private TipoCuenta tipoCuenta;
+    private String tipoCuenta;
 
     @Column(name = "saldoInicial", nullable = false)
     private double saldoInicial;
@@ -30,6 +34,23 @@ public class Cuenta implements Serializable  {
 
     @OneToMany(mappedBy = "cuenta", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Movimiento> movimientos;
+
+
+    public long getNumeroCuenta() {
+        return numeroCuenta;
+    }
+
+    public void setNumeroCuenta(long numeroCuenta) {
+        this.numeroCuenta = numeroCuenta;
+    }
+
+    public List<Movimiento> getMovimientos() {
+        return movimientos;
+    }
+
+    public void setMovimientos(List<Movimiento> movimientos) {
+        this.movimientos = movimientos;
+    }
 
     public Long getId() {
         return id;
@@ -55,22 +76,13 @@ public class Cuenta implements Serializable  {
         this.saldoInicial = saldoInicial;
     }
 
-    public TipoCuenta getTipoCuenta() {
+    public String getTipoCuenta() {
         return tipoCuenta;
     }
 
-    public void setTipoCuenta(TipoCuenta tipoCuenta) {
+    public void setTipoCuenta(String tipoCuenta) {
         this.tipoCuenta = tipoCuenta;
     }
-
-    public List<Movimiento> getMovimientos() {
-        return movimientos;
-    }
-
-    public void setMovimientos(List<Movimiento> movimientos) {
-        this.movimientos = movimientos;
-    }
-
 
     @Override
     public String toString() {

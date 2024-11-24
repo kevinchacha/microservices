@@ -33,11 +33,11 @@ public class MovimientosService implements MovimientosInterface {
         Optional<Movimiento> existeMovimiento = movimientosRepository.findById(id);
         if (existeMovimiento.isPresent()) {
             Movimiento movimiento = existeMovimiento.get();
-            movimiento.setFecha(newMovimiento.getFecha());
-            movimiento.setTipoMovimiento(newMovimiento.getTipoMovimiento());
-            movimiento.setValor(newMovimiento.getValor());
-            movimiento.setSaldo(newMovimiento.getSaldo());
-            movimiento.setCuenta(newMovimiento.getCuenta());
+//            movimiento.setFecha(newMovimiento.getFecha());
+//            movimiento.setTipoMovimiento(newMovimiento.getTipoMovimiento());
+//            movimiento.setValor(newMovimiento.getValor());
+//            movimiento.setSaldo(newMovimiento.getSaldo());
+//            movimiento.setCuenta(newMovimiento.getCuenta());
             return movimientosRepository.save(movimiento);
         } else {
             throw new RuntimeException("Movimiento con id: " +id+" no encontrado!!");

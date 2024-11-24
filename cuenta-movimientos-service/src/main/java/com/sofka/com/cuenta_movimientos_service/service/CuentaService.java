@@ -1,11 +1,13 @@
 package com.sofka.com.cuenta_movimientos_service.service;
+import com.sofka.com.cuenta_movimientos_service.dto.response.GetCuentasDTO;
 import com.sofka.com.cuenta_movimientos_service.interfaces.CuentaInterface;
+import com.sofka.com.cuenta_movimientos_service.mapper.CuentaMapper;
 import com.sofka.com.cuenta_movimientos_service.model.Cuenta;
 import com.sofka.com.cuenta_movimientos_service.repository.CuentaRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import java.util.List;
 import java.util.NoSuchElementException;
 @Service
 public class CuentaService implements CuentaInterface {
@@ -15,22 +17,23 @@ public class CuentaService implements CuentaInterface {
         this.cuentaRepository = cuentaRepository;
     }
     @Override
-    public List<Cuenta> findAllCuentas(Pageable pageable) {
-        return cuentaRepository.findAll();
+    public Page<GetCuentasDTO> findAllCuentas(Pageable pageable) {
+        Page<Cuenta> clientes= cuentaRepository.findAll(pageable);
+        return clientes.map(CuentaMapper::toCuentaDto);
     }
 
     @Override
     public Cuenta findCuentaById(Long id) {
-        return cuentaRepository.findById(id)
+        return cuentaRepository.findByNumeroCuenta(id)
                 .orElseThrow(()-> new NoSuchElementException("Cuenta no encontrada con ID: " + id));
     }
 
     @Transactional
     @Override
     public Cuenta createCuenta(Cuenta cuenta) {
-        if (cuenta.getMovimientos() != null && !cuenta.getMovimientos().isEmpty()) {
-            cuenta.getMovimientos().forEach(movimiento -> movimiento.setCuenta(cuenta));
-        }
+//        if (cuenta.getMovimientos() != null && !cuenta.getMovimientos().isEmpty()) {
+//            cuenta.getMovimientos().forEach(movimiento -> movimiento.setCuenta(cuenta));
+//        }
         return cuentaRepository.save(cuenta);
     }
 
@@ -45,6 +48,7 @@ public class CuentaService implements CuentaInterface {
         return cuentaRepository.save(cuenta);
     }
 
+    @Transactional
     @Override
     public void deleteCuenta(Long id) {
         findCuentaById(id);

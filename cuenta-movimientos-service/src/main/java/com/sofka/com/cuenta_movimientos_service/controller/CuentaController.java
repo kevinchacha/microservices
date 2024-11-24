@@ -1,4 +1,5 @@
 package com.sofka.com.cuenta_movimientos_service.controller;
+import com.sofka.com.cuenta_movimientos_service.dto.response.GetCuentasDTO;
 import com.sofka.com.cuenta_movimientos_service.model.Cuenta;
 import com.sofka.com.cuenta_movimientos_service.model.ManageResponse;
 import com.sofka.com.cuenta_movimientos_service.service.CuentaService;
@@ -6,12 +7,12 @@ import com.sofka.com.cuenta_movimientos_service.utils.CommonUtils;
 import com.sofka.com.cuenta_movimientos_service.utils.Constants;
 import jakarta.validation.Valid;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @RestController
 @RequestMapping("/cuentas")
@@ -25,7 +26,7 @@ public class CuentaController {
         this.utils = utils;
     }
     @GetMapping
-    public List<Cuenta> findAllCuentas(Pageable pageable) {
+    public Page<GetCuentasDTO> findAllCuentas(Pageable pageable) {
         return cuentaService.findAllCuentas(pageable);
     }
 

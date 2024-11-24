@@ -1,12 +1,9 @@
 package com.sofka.com.cuenta_movimientos_service.model;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,16 +19,13 @@ public class Cliente {
     private Long id;
 
     @OneToOne()
-    @JoinColumn(name = "persona_id", nullable = false)
-    @Valid
+    @JoinColumn(name = "persona_id", referencedColumnName = "identificacion", nullable = false)
     private Persona persona;
 
-    @NotBlank(message = "La contraseña no puede estar vacía")
-    @Size(min = 4, max = 20, message = "La contraseña debe tener entre 4 y 20 caracteres")
     @Column(name = "contrasena", nullable = false)
+    @JsonIgnore
     private String contrasena;
 
-    @NotNull(message = "El estado no puede ser nulo")
     @Column(name = "estado", nullable = false)
     private Boolean estado;
 
