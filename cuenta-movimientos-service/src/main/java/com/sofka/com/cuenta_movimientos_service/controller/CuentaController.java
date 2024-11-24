@@ -1,4 +1,5 @@
 package com.sofka.com.cuenta_movimientos_service.controller;
+import com.sofka.com.cuenta_movimientos_service.dto.request.CreateCuentaDTO;
 import com.sofka.com.cuenta_movimientos_service.dto.response.GetCuentasDTO;
 import com.sofka.com.cuenta_movimientos_service.model.Cuenta;
 import com.sofka.com.cuenta_movimientos_service.model.ManageResponse;
@@ -37,9 +38,9 @@ public class CuentaController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> createCuenta(@Valid @RequestBody Cuenta cuenta) {
+    public ResponseEntity<Object> createCuenta(@Valid @RequestBody CreateCuentaDTO createCuentaDTO) {
         try {
-            Cuenta cuentaCreated = cuentaService.createCuenta(cuenta);
+            GetCuentasDTO cuentaCreated = cuentaService.createCuenta(createCuentaDTO);
             return new ResponseEntity<>(cuentaCreated, HttpStatus.CREATED);
         } catch (HttpMessageNotReadableException e) {
             throw new HttpMessageNotReadableException("Violación de datos: " + e.getMessage());
@@ -53,19 +54,15 @@ public class CuentaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ManageResponse> updateCuenta(@PathVariable Long id, @RequestBody Cuenta cuenta) {
-        Cuenta updatedCuenta = cuentaService.updateCuenta(id, cuenta);
-        return ResponseEntity.ok(utils.createResponse(Constants.OK, Constants.CUENTA_ACTUALIZADO + updatedCuenta, null));
+    public ResponseEntity<Object> updateCuenta(@PathVariable Long id, @Valid @RequestBody CreateCuentaDTO updateCuentaDTO) {
+        GetCuentasDTO updatedCuenta = cuentaService.updateCuenta(id, updateCuentaDTO);
+        return ResponseEntity.ok(updatedCuenta);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ManageResponse> deleteCuenta(@PathVariable Long id) {
-        try {
-            cuentaService.deleteCuenta(id);
-            return ResponseEntity.ok(utils.createResponse(Constants.OK, Constants.CUENTA_ELIMINADO + id, null));
-        } catch (Exception e) {
-            return new ResponseEntity<>(utils.createResponse(Constants.INTERNAL_SERVER_ERROR, e.toString(),null), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        cuentaService.deleteCuenta(id);
+        return ResponseEntity.ok(utils.createResponse(Constants.OK, Constants.CUENTA_ELIMINADO + id, null));
     }
 
 }

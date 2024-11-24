@@ -1,6 +1,7 @@
 package com.sofka.com.cuenta_movimientos_service.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sofka.com.cuenta_movimientos_service.utils.TipoCuenta;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -18,7 +19,8 @@ public class Cuenta implements Serializable  {
     private long numeroCuenta;
 
     @Column(name = "tipoCuenta", nullable = false)
-    private String tipoCuenta;
+    @Enumerated(EnumType.STRING)
+    private TipoCuenta tipoCuenta;
 
     @Column(name = "saldoInicial", nullable = false)
     private double saldoInicial;
@@ -26,15 +28,23 @@ public class Cuenta implements Serializable  {
     @Column(name = "estado", nullable = false)
     private boolean estado;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
-    @JoinColumn(name = "cliente_id", nullable = false)
-    private Cliente cliente;
+
+    @JsonIgnore
+    @Column(name = "cliente_id", nullable = false)
+    private long cliente;
 
 
     @OneToMany(mappedBy = "cuenta", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Movimiento> movimientos;
 
+
+    public void setTipoCuenta(TipoCuenta tipoCuenta) {
+        this.tipoCuenta = tipoCuenta;
+    }
+
+    public TipoCuenta getTipoCuenta() {
+        return tipoCuenta;
+    }
 
     public long getNumeroCuenta() {
         return numeroCuenta;
@@ -76,12 +86,12 @@ public class Cuenta implements Serializable  {
         this.saldoInicial = saldoInicial;
     }
 
-    public String getTipoCuenta() {
-        return tipoCuenta;
+    public long getCliente() {
+        return cliente;
     }
 
-    public void setTipoCuenta(String tipoCuenta) {
-        this.tipoCuenta = tipoCuenta;
+    public void setCliente(long cliente) {
+        this.cliente = cliente;
     }
 
     @Override
