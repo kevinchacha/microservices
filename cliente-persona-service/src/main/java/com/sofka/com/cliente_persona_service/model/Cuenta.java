@@ -8,8 +8,12 @@ import java.util.List;
 public class Cuenta implements Serializable  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "numeroCuenta")
+    @Column(name = "cuenta_id")
     private Long id;
+
+    
+    @Column(name = "numero_cuenta", nullable = false)
+    private String numeroCuenta;
 
     @Column(name = "tipoCuenta", nullable = false)
     private String tipoCuenta;

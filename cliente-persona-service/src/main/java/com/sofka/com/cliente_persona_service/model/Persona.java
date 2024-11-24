@@ -1,6 +1,5 @@
 package com.sofka.com.cliente_persona_service.model;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "persona")
@@ -11,31 +10,21 @@ public class Persona {
     private Long id;
 
     @Column(name = "nombre", nullable = false)
-    @NotNull(message = "El nombre no puede ser nulo.")
-    @Size(min = 1, max = 100, message = "El nombre debe tener entre 1 y 100 caracteres.")
     private String nombre;
 
     @Column(name = "genero", nullable = false, length = 50)
-    @NotNull(message = "El género no puede ser nulo.")
-    @Size(min = 1, max = 50, message = "El género debe tener entre 1 y 50 caracteres.")
     private String genero;
 
     @Column(name = "edad", nullable = false)
-    @NotNull(message = "La edad no puede ser nula.")
-    @Min(value = 0, message = "La edad no puede ser negativa.")
-    @Max(value = 98, message = "La edad no puede ser mayor a 98 años.")
     private Integer edad;
 
     @Column(name = "identificacion", unique = true, nullable = false)
-    @Pattern(regexp = "^[0-9]{10}$", message = "La identificación debe tener 10 caracteres numéricos.")
-    private String identificacion;
+    private Long identificacion;
 
     @Column(name = "direccion")
-    @Size(max = 255, message = "La dirección no puede exceder los 255 caracteres.")
     private String direccion;
 
     @Column(name = "telefono")
-    @Pattern(regexp = "^[0-9]{10}$", message = "El teléfono debe tener 10 caracteres numéricos.")
     private String telefono;
 
     public String getNombre() {
@@ -62,11 +51,20 @@ public class Persona {
         this.edad = edad;
     }
 
-    public String getIdentificacion() {
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getIdentificacion() {
         return identificacion;
     }
 
-    public void setIdentificacion(String identificacion) {
+    public void setIdentificacion(Long identificacion) {
         this.identificacion = identificacion;
     }
 
@@ -86,4 +84,15 @@ public class Persona {
         this.telefono = telefono;
     }
 
+    public Persona(String nombre, String genero, Integer edad, Long identificacion, String direccion, String telefono) {
+        this.nombre = nombre;
+        this.genero = genero;
+        this.edad = edad;
+        this.identificacion = identificacion;
+        this.direccion = direccion;
+        this.telefono = telefono;
+    }
+
+    public Persona() {
+    }
 }

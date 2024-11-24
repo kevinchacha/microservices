@@ -1,4 +1,5 @@
 package com.sofka.com.cliente_persona_service.controller;
+import com.sofka.com.cliente_persona_service.dto.request.CreateUserDTO;
 import com.sofka.com.cliente_persona_service.dto.response.GetUserDTO;
 import com.sofka.com.cliente_persona_service.model.Cliente;
 import com.sofka.com.cliente_persona_service.model.ManageResponse;
@@ -36,9 +37,9 @@ public class ClientController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> createUser(@Valid @RequestBody Cliente user) {
+    public ResponseEntity<Object> createUser(@Valid @RequestBody CreateUserDTO createUserDTO) {
         try {
-            GetUserDTO userCreated = clienteService.createUser(user);
+            GetUserDTO userCreated = clienteService.createUser(createUserDTO);
             return new ResponseEntity<>(userCreated, HttpStatus.CREATED);
         } catch (HttpMessageNotReadableException e) {
             throw new HttpMessageNotReadableException("Violación de datos: " + e.getMessage());
@@ -51,7 +52,7 @@ public class ClientController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateUser(@PathVariable Long id, @Valid @RequestBody Cliente user) {
+    public ResponseEntity<Object> updateUser(@PathVariable Long id, @Valid @RequestBody CreateUserDTO user) {
         GetUserDTO updatedUser = clienteService.updateUser(id, user);
         return ResponseEntity.ok(updatedUser);
     }
