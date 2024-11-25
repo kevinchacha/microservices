@@ -3,7 +3,6 @@ import com.sofka.com.cuenta_movimientos_service.dto.request.CreateMovimientoDTO;
 import com.sofka.com.cuenta_movimientos_service.dto.response.GetMovimientosDTO;
 import com.sofka.com.cuenta_movimientos_service.dto.response.MovimientosDTO;
 import com.sofka.com.cuenta_movimientos_service.model.ManageResponse;
-import com.sofka.com.cuenta_movimientos_service.model.Movimiento;
 import com.sofka.com.cuenta_movimientos_service.service.MovimientosService;
 import com.sofka.com.cuenta_movimientos_service.utils.CommonUtils;
 import com.sofka.com.cuenta_movimientos_service.utils.Constants;
