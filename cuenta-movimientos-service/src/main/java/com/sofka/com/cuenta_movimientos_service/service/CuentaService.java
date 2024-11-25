@@ -36,7 +36,7 @@ public class CuentaService implements CuentaInterface {
         cuenta.setNumeroCuenta(createCuentaDTO.numeroCuenta());
         cuenta.setTipoCuenta(createCuentaDTO.tipoCuenta());
         cuenta.setSaldoInicial(createCuentaDTO.saldoInicial());
-        cuenta.setEstado(createCuentaDTO.estado());
+        cuenta.setEstado(true);
         cuenta.setCliente(createCuentaDTO.identificacion());
         cuentaRepository.save(cuenta);
         return CuentaMapper.toCuentaDto(cuenta);
@@ -58,7 +58,8 @@ public class CuentaService implements CuentaInterface {
         @Transactional
         @Override
         public void deleteCuenta(Long id) {
-            findCuentaById(id);
-            cuentaRepository.deleteByNumeroCuenta(id);
+            Cuenta cuenta = findCuentaById(id);
+            cuenta.setEstado(false);
+            cuentaRepository.save(cuenta);
         }
 }

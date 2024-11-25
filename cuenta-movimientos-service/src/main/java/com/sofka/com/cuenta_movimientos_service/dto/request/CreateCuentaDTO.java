@@ -13,7 +13,6 @@ public record CreateCuentaDTO(
         @NotNull(message = "El saldo inicial es obligatorio")
         Double saldoInicial,
 
-        @NotNull(message = "El estado es obligatorio")
         Boolean estado,
 
         @NotNull(message = "La identificación es obligatoria")
