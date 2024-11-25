@@ -1,5 +1,4 @@
 package com.sofka.com.cliente_persona_service.model;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sofka.com.cliente_persona_service.utils.TipoCuenta;
 import jakarta.persistence.*;
 import java.io.Serializable;

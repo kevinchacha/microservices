@@ -1,7 +1,5 @@
 package com.sofka.com.cliente_persona_service.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +26,6 @@ public class Cliente {
     private Boolean estado;
 
     @OneToMany(mappedBy = "cliente",fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    @JsonInclude(JsonInclude.Include.ALWAYS)
     private List<Cuenta> cuentas = new ArrayList<>();
 
 
@@ -70,12 +66,4 @@ public class Cliente {
         this.cuentas = cuentas;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-                "id=" + id +
-                "," + persona +
-                ", estado=" + estado +
-                '}';
-    }
 }

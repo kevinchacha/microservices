@@ -9,5 +9,4 @@ public interface CuentaRepository extends JpaRepository<Cuenta, Long> {
     Optional<Cuenta> findByNumeroCuenta(Long id);
     void deleteByNumeroCuenta(Long id);
 
-
 }

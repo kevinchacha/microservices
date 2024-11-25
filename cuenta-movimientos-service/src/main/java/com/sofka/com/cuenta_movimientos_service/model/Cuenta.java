@@ -1,5 +1,4 @@
 package com.sofka.com.cuenta_movimientos_service.model;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sofka.com.cuenta_movimientos_service.utils.TipoCuenta;
 import jakarta.persistence.*;
@@ -14,7 +13,7 @@ public class Cuenta implements Serializable  {
     @Column(name = "cuenta_id")
     private Long id;
 
-    
+
     @Column(name = "numero_cuenta", nullable = false)
     private long numeroCuenta;
 
@@ -94,15 +93,4 @@ public class Cuenta implements Serializable  {
         this.cliente = cliente;
     }
 
-    @Override
-    public String toString() {
-        return "Cuenta{" +
-                "id=" + id +
-                ", tipoCuenta='" + tipoCuenta + '\'' +
-                ", saldoInicial=" + saldoInicial +
-                ", estado=" + estado +
-                ", cliente=" + cliente +
-                ", movimientos=" + (movimientos != null ? movimientos.size() : null) +
-                '}';
-    }
 }
