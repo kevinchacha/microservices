@@ -40,7 +40,7 @@ public class ClientService implements ClientInterface {
                 createUserDTO.nombre(),
                 createUserDTO.genero(),
                 createUserDTO.edad(),
-                Long.valueOf(createUserDTO.identificacion()),
+                createUserDTO.identificacion(),
                 createUserDTO.direccion(),
                 createUserDTO.telefono()
         );
@@ -48,8 +48,7 @@ public class ClientService implements ClientInterface {
         Cliente cliente = new Cliente();
         cliente.setPersona(nuevaPersona);
         cliente.setContrasena(createUserDTO.contrasena());
-        cliente.setEstado(createUserDTO.estado());
-
+        cliente.setEstado(true);
         Cliente clienteGuardado = clienteRepository.save(cliente);
         return UserMapper.toUserDto(clienteGuardado);
     }
@@ -69,8 +68,12 @@ public class ClientService implements ClientInterface {
     @Transactional
     @Override
     public void deleteUser(Long id) {
-        findUserById(id);
-        clienteRepository.deleteByPersonaIdentificacion(id);
+        Cliente cliente = findUserById(id);
+        if(!cliente.isEstado()){
+            throw new IllegalArgumentException("El cliente no se encuentra activo.");
+        }
+        cliente.setEstado(false);
+        clienteRepository.save(cliente);
     }
 
     private void updatePersonaIfNecessary(Persona existingPersona, CreateUserDTO clienteUpdateDTO) {

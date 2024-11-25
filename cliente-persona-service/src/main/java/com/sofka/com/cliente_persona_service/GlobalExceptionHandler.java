@@ -45,4 +45,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ManageResponse> handleInvalidTypeException(HttpMessageNotReadableException ex) {
         return new ResponseEntity<>(utils.createResponse(Constants.BAD_REQUEST, ex.getMessage(), null), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ManageResponse> handleIllegalArgumentException(IllegalArgumentException ex) {
+        return new ResponseEntity<>(utils.createResponse(Constants.BAD_REQUEST, ex.getMessage(), null), HttpStatus.BAD_REQUEST);
+    }
 }

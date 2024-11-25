@@ -30,7 +30,6 @@ public record CreateUserDTO(
         @Size(min = 4, max = 20, message = "La contraseña debe tener entre 4 y 20 caracteres.")
         String contrasena,
 
-        @NotNull(message = "El estado no puede ser nulo.")
         Boolean estado
 ) {
 }
