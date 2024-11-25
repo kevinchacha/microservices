@@ -1,6 +1,7 @@
 package com.sofka.com.cuenta_movimientos_service.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sofka.com.cuenta_movimientos_service.utils.TipoMovimiento;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -17,7 +18,8 @@ public class Movimiento {
     private Date fecha;
 
     @Column(name = "tipo_movimiento", nullable = false)
-    private String tipoMovimiento;
+    @Enumerated(EnumType.STRING)
+    private TipoMovimiento tipoMovimiento;
 
     @Column(name = "valor", nullable = false)
     private double valor;
@@ -31,6 +33,14 @@ public class Movimiento {
     private Cuenta cuenta;
 
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Date getFecha() {
         return fecha;
     }
@@ -39,11 +49,11 @@ public class Movimiento {
         this.fecha = fecha;
     }
 
-    public String getTipoMovimiento() {
+    public TipoMovimiento getTipoMovimiento() {
         return tipoMovimiento;
     }
 
-    public void setTipoMovimiento(String tipoMovimiento) {
+    public void setTipoMovimiento(TipoMovimiento tipoMovimiento) {
         this.tipoMovimiento = tipoMovimiento;
     }
 
@@ -61,5 +71,13 @@ public class Movimiento {
 
     public void setSaldo(double saldo) {
         this.saldo = saldo;
+    }
+
+    public Cuenta getCuenta() {
+        return cuenta;
+    }
+
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
     }
 }
