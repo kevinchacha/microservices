@@ -1,6 +1,9 @@
 package com.sofka.com.cuenta_movimientos_service.service;
 import com.sofka.com.cuenta_movimientos_service.dto.request.CreateMovimientoDTO;
+import com.sofka.com.cuenta_movimientos_service.dto.response.GetMovimientosDTO;
+import com.sofka.com.cuenta_movimientos_service.dto.response.MovimientosDTO;
 import com.sofka.com.cuenta_movimientos_service.interfaces.MovimientosInterface;
+import com.sofka.com.cuenta_movimientos_service.mapper.MovimientosMapper;
 import com.sofka.com.cuenta_movimientos_service.model.Cuenta;
 import com.sofka.com.cuenta_movimientos_service.model.Movimiento;
 import com.sofka.com.cuenta_movimientos_service.repository.CuentaRepository;
@@ -12,7 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MovimientosService implements MovimientosInterface {
@@ -29,22 +32,24 @@ public class MovimientosService implements MovimientosInterface {
         this.cuentaService=cuentaService;
     }
     @Override
-    public Page<Movimiento> findAllMovimientos(Pageable pageable) {
-        return movimientosRepository.findAll(pageable);
+    public Page<MovimientosDTO> findAllMovimientos(Pageable pageable) {
+        Page<Movimiento> movimientos =movimientosRepository.findAll(pageable);
+        return movimientos.map(MovimientosMapper::toMovimientosDto);
     }
 
     @Override
-    public List<Movimiento> findMovimientosByNumCuenta(Long id) {
+    public List<GetMovimientosDTO> findMovimientosByNumCuenta(Long id) {
         List<Movimiento> movimientos = movimientosRepository.findByCuentaNumeroCuenta(id);
         if (movimientos.isEmpty()) {
             throw new NoSuchElementException("Movimientos no encontrados para el número de cuenta: " + id);
         }
-        return  movimientos;
+        return  movimientos.stream().map(MovimientosMapper::toMovimientoDto)
+                .collect(Collectors.toList());
     }
 
     @Transactional
     @Override
-    public Movimiento createMovimiento(CreateMovimientoDTO createMovimientoDTO) {
+    public MovimientosDTO createMovimiento(CreateMovimientoDTO createMovimientoDTO) {
         Cuenta cuenta = cuentaService.findCuentaById(createMovimientoDTO.cuentaId());
         Double nuevoSaldo = cuenta.getSaldoInicial();
 
@@ -64,12 +69,13 @@ public class MovimientosService implements MovimientosInterface {
         movimiento.setValor(createMovimientoDTO.valor());
         movimiento.setSaldo(nuevoSaldo);
         movimiento.setCuenta(cuenta);
-        return movimientosRepository.save(movimiento);
+        movimientosRepository.save(movimiento);
+        return MovimientosMapper.toMovimientosDto(movimiento);
     }
 
     @Transactional
     @Override
-    public Movimiento updateMovimiento(Long id, CreateMovimientoDTO updateMovimientoDTO) {
+    public MovimientosDTO updateMovimiento(Long id, CreateMovimientoDTO updateMovimientoDTO) {
         Movimiento movimientoExistente = movimientosRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Movimiento no encontrado con ID: " + id));
         Cuenta cuenta = movimientoExistente.getCuenta();
@@ -95,7 +101,8 @@ public class MovimientosService implements MovimientosInterface {
         movimientoExistente.setTipoMovimiento(updateMovimientoDTO.tipoMovimiento());
         movimientoExistente.setValor(updateMovimientoDTO.valor());
         movimientoExistente.setSaldo(nuevoSaldo);
-        return movimientosRepository.save(movimientoExistente);
+        movimientosRepository.save(movimientoExistente);
+        return MovimientosMapper.toMovimientosDto(movimientoExistente);
     }
     @Transactional
     @Override

@@ -19,8 +19,8 @@ public class CuentaService implements CuentaInterface {
     }
     @Override
     public Page<GetCuentasDTO> findAllCuentas(Pageable pageable) {
-        Page<Cuenta> clientes= cuentaRepository.findAll(pageable);
-        return clientes.map(CuentaMapper::toCuentaDto);
+        Page<Cuenta> cuentas= cuentaRepository.findAll(pageable);
+        return cuentas.map(CuentaMapper::toCuentaDto);
     }
 
     @Override

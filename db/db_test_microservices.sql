@@ -56,7 +56,7 @@ INSERT INTO cliente (persona_id, contrasena, estado) VALUES
 
 
 INSERT INTO cuenta (numero_cuenta, tipo_cuenta, saldo_inicial, estado, cliente_id) VALUES 
-(478758, 'Ahorros', 2000.00, TRUE, (SELECT cliente_id FROM cliente WHERE persona_id=(SELECT identificacion FROM persona WHERE identificacion='1709334325'))),
-(225487, 'Corriente', 100.00, TRUE, (SELECT cliente_id FROM cliente WHERE persona_id=(SELECT identificacion FROM persona WHERE identificacion='1400878523'))),
-(495878, 'Ahorros', 0.00, TRUE, (SELECT cliente_id FROM cliente WHERE persona_id=(SELECT identificacion FROM persona WHERE identificacion='1400767896'))),
-(496825, 'Ahorros', 540.00, TRUE, (SELECT cliente_id FROM cliente WHERE persona_id=(SELECT identificacion FROM persona WHERE identificacion='1400878523')));
+(478758, 'AHORROS', 2000.00, TRUE, (SELECT cliente_id FROM cliente WHERE persona_id=(SELECT identificacion FROM persona WHERE identificacion='1709334325'))),
+(225487, 'CORRIENTE', 100.00, TRUE, (SELECT cliente_id FROM cliente WHERE persona_id=(SELECT identificacion FROM persona WHERE identificacion='1400878523'))),
+(495878, 'AHORROS', 0.00, TRUE, (SELECT cliente_id FROM cliente WHERE persona_id=(SELECT identificacion FROM persona WHERE identificacion='1400767896'))),
+(496825, 'AHORROS', 540.00, TRUE, (SELECT cliente_id FROM cliente WHERE persona_id=(SELECT identificacion FROM persona WHERE identificacion='1400878523')));

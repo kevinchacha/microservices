@@ -1,5 +1,4 @@
 package com.sofka.com.cuenta_movimientos_service.mapper;
-
 import com.sofka.com.cuenta_movimientos_service.dto.response.GetCuentasDTO;
 import com.sofka.com.cuenta_movimientos_service.model.Cuenta;
 
