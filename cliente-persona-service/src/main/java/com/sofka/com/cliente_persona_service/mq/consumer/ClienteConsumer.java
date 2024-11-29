@@ -11,10 +11,8 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 @Component
 public class ClienteConsumer {
-
     @Autowired
     private RabbitTemplate rabbitTemplate;
-
     @Autowired
     private ClienteRepository clienteRepository;
 

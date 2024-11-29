@@ -2,11 +2,10 @@ package com.sofka.com.cuenta_movimientos_service.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sofka.com.cuenta_movimientos_service.utils.TipoCuenta;
 import jakarta.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 @Entity
 @Table(name = "cuenta")
-public class Cuenta implements Serializable  {
+public class Cuenta  {
     @Id
     @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)

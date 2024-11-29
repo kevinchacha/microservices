@@ -1,10 +1,9 @@
 package com.sofka.com.cliente_persona_service.model;
 import com.sofka.com.cliente_persona_service.utils.TipoCuenta;
 import jakarta.persistence.*;
-import java.io.Serializable;
 @Entity
 @Table(name = "cuenta")
-public class Cuenta implements Serializable  {
+public class Cuenta   {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cuenta_id")

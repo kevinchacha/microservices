@@ -2,7 +2,6 @@ package com.sofka.com.cuenta_movimientos_service.interfaces;
 import com.sofka.com.cuenta_movimientos_service.dto.request.CreateMovimientoDTO;
 import com.sofka.com.cuenta_movimientos_service.dto.response.GetMovimientosDTO;
 import com.sofka.com.cuenta_movimientos_service.dto.response.MovimientosDTO;
-import com.sofka.com.cuenta_movimientos_service.model.Movimiento;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import java.util.List;

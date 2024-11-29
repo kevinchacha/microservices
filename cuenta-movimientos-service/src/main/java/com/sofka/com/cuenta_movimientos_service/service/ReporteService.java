@@ -11,8 +11,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.concurrent.CompletableFuture;
-
 
 @Service
 public class ReporteService {
@@ -28,13 +26,6 @@ public class ReporteService {
         this.rabbitTemplate=rabbitTemplate;
     }
     public List<ReporteMovimientoDTO> generarReporte(Long clienteId, LocalDate fechaInicio, LocalDate fechaFin) {
-     /*   clienteProducer.solicitarCliente(clienteId)
-                .thenAccept(clienteName -> {
-                    System.out.println("Nombre del cliente: " + clienteName);
-                })
-                .exceptionally(error -> {
-                    throw new IllegalArgumentException("Error al obtener cliente: " + error.getMessage());
-                });*/
         try {
             String clienteName = clienteProducer.solicitarCliente(clienteId).get();
             if(clienteName.startsWith("CLIENT_NOT_FOUND")){
@@ -60,8 +51,6 @@ public class ReporteService {
                     );
 
                     reporte.add(dto);
-
-                    // Actualizar saldo inicial para el siguiente movimiento
                     ultimoSaldo = movimiento.getSaldo();
                 }
             }
