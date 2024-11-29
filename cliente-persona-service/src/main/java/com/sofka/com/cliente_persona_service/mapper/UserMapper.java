@@ -6,6 +6,7 @@ public class UserMapper {
     public static GetUserDTO toUserDto(Cliente cliente){
         if(cliente == null) return  null;
         return new GetUserDTO(
+                cliente.getId(),
                 cliente.getPersona().getIdentificacion(),
                 cliente.getPersona().getNombre(),
                 cliente.getPersona().getGenero(),

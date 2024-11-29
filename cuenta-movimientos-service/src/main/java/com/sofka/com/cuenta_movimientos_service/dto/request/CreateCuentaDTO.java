@@ -17,6 +17,6 @@ public record CreateCuentaDTO(
 
         @NotNull(message = "La identificación es obligatoria")
         @Positive(message = "La identificación debe ser un número positivo")
-        Long identificacion
+        Long clientId
 ) {
 }

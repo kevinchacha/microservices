@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS cuenta (
 	numero_cuenta BIGINT  UNIQUE NOT null ,
     tipo_cuenta VARCHAR(50) NOT NULL,
     saldo_inicial DOUBLE PRECISION NOT NULL,
+	primer_monto DOUBLE PRECISION NOT NULL,
     estado BOOLEAN NOT NULL,
     cliente_id BIGINT NOT NULL,
     FOREIGN KEY (cliente_id) REFERENCES cliente(cliente_id)

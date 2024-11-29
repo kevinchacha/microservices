@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public record GetUserDTO(
         Long id,
+        Long identificacion,
         String nombre,
         String genero,
         String direccion,

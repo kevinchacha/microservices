@@ -24,6 +24,10 @@ public class Cuenta implements Serializable  {
     @Column(name = "saldoInicial", nullable = false)
     private double saldoInicial;
 
+    @Column(name = "primerMonto", nullable = false)
+    private double primerMonto;
+
+
     @Column(name = "estado", nullable = false)
     private boolean estado;
 
@@ -36,6 +40,15 @@ public class Cuenta implements Serializable  {
     @OneToMany(mappedBy = "cuenta", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Movimiento> movimientos;
 
+
+
+    public double getPrimerMonto() {
+        return primerMonto;
+    }
+
+    public void setPrimerMonto(double primerMonto) {
+        this.primerMonto = primerMonto;
+    }
 
     public void setTipoCuenta(TipoCuenta tipoCuenta) {
         this.tipoCuenta = tipoCuenta;

@@ -36,8 +36,9 @@ public class CuentaService implements CuentaInterface {
         cuenta.setNumeroCuenta(createCuentaDTO.numeroCuenta());
         cuenta.setTipoCuenta(createCuentaDTO.tipoCuenta());
         cuenta.setSaldoInicial(createCuentaDTO.saldoInicial());
+        cuenta.setPrimerMonto(createCuentaDTO.saldoInicial());
         cuenta.setEstado(true);
-        cuenta.setCliente(createCuentaDTO.identificacion());
+        cuenta.setCliente(createCuentaDTO.clientId());
         cuentaRepository.save(cuenta);
         return CuentaMapper.toCuentaDto(cuenta);
     }
@@ -50,7 +51,7 @@ public class CuentaService implements CuentaInterface {
             cuenta.setTipoCuenta(updateCuentaDTO.tipoCuenta());
             cuenta.setSaldoInicial(updateCuentaDTO.saldoInicial());
             cuenta.setEstado(updateCuentaDTO.estado());
-            cuenta.setCliente(updateCuentaDTO.identificacion());
+            cuenta.setCliente(updateCuentaDTO.clientId());
             cuentaRepository.save(cuenta);
             return CuentaMapper.toCuentaDto(cuenta);
         }

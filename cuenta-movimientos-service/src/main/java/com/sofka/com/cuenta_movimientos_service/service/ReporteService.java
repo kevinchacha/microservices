@@ -45,15 +45,15 @@ public class ReporteService {
             for (Cuenta cuenta : cuentas) {
                 List<Movimiento> movimientos = movimientoRepository.findByCuentaIdAndFechaBetween(
                         cuenta.getId(), fechaInicio, fechaFin);
-                double saldoInicial = cuenta.getSaldoInicial();
+                double ultimoSaldo = cuenta.getSaldoInicial();
                 for (Movimiento movimiento : movimientos) {
                     ReporteMovimientoDTO dto = new ReporteMovimientoDTO(
                             movimiento.getFecha().toString(),
-//                        cliente.getNombre(),
                             clienteName,
                             cuenta.getNumeroCuenta(),
-                            cuenta.getTipoCuenta(),
-                            saldoInicial,
+                            movimiento.getTipoMovimiento(),
+                            cuenta.getPrimerMonto(),
+                            ultimoSaldo,
                             cuenta.isEstado(),
                             movimiento.getValor(),
                             movimiento.getSaldo()
@@ -62,7 +62,7 @@ public class ReporteService {
                     reporte.add(dto);
 
                     // Actualizar saldo inicial para el siguiente movimiento
-                    saldoInicial = movimiento.getSaldo();
+                    ultimoSaldo = movimiento.getSaldo();
                 }
             }
             if(reporte.isEmpty()){
